@@ -1,0 +1,31 @@
+.accordion-container {
+    padding: 0 25px
+}
+
+.accordion {
+    border: 1px solid #f3f3f3;
+    margin: 0 2%;
+}
+
+.accordion-title {
+    display: flex;
+    justify-content: space-between;
+    background: #ccc;
+    padding: 10px 25px;
+    font-size: 16px;
+}
+
+.activeTitle {
+    display: flex;
+    justify-content: space-between;
+    background: #000;
+    color: #fff;
+    padding: 10px 25px;
+    font-size: 16px;
+}
+
+.accordion-content {
+    background: #f3f3f3;
+    text-align: center;
+    padding: 15px 25px
+}
