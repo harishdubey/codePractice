@@ -4,13 +4,22 @@ import Year from './year';
 import PostPagination from './postsPagination'
 // import Accordion from './Accordion';
 import Accordion2 from "./Accordion2";
-// import ImageSlider from './imageSlider';
+// import ImageSlider from './imageSlider;
 import MyImageSlider from "./myslider";
+import ErrorBoundry from './ErrorBoundry';
+import RiskyComponent from "./RiskyComponent";
+import ContextCheck from './ContextCheck';
+import Hooks from "./Hooks";
 import './App.css';
 
 function App() {
   return (
     <div className="App">
+      <Hooks />
+      <ErrorBoundry>
+        <RiskyComponent />
+      </ErrorBoundry>
+      <ContextCheck />
       <MyImageSlider />
       {/* <ImageSlider /> */}
       <Accordion2 />
@@ -19,18 +28,6 @@ function App() {
       {/* <PostsWithPagination /> */}
 
       <Year />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-
-      </header>
 
     </div>
   );
