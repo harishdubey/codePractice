@@ -10,11 +10,13 @@ import ErrorBoundry from './ErrorBoundry';
 import RiskyComponent from "./RiskyComponent";
 import ContextCheck from './ContextCheck';
 import Hooks from "./Hooks";
+import ProtectedComponent from "./HOC";
 import './App.css';
 
 function App() {
   return (
     <div className="App">
+      <ProtectedComponent />
       <Hooks />
       <ErrorBoundry>
         <RiskyComponent />

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useRef, useId, useImperativeHandle, forwardRef } from 'react';
+import React, { useState, useCallback, useMemo, useRef, useId, useImperativeHandle, forwardRef, useLayoutEffect, useEffect, useReducer } from 'react';
 
 const Button = React.memo(({ onClick }) => {
     console.log('Button rendered');
@@ -88,13 +88,139 @@ function ImperativeHandle() {
     )
 }
 
+function UseLayoutHooks() {
+    const divRef = useRef(null);
+    const [width, setWidth] = useState(0);
+
+    useLayoutEffect(() => {
+        if (divRef.current) {
+            setWidth(divRef.current.offsetWidth);
+        }
+    }, []);
+
+    return (
+        <div>
+            <div ref={divRef} style={{ width: '60%' }}>
+                Resize me!
+            </div>
+            <p>Width: {width}px</p>
+        </div>
+    );
+}
+
+function useCustomHook() {
+    const [width, setWidth] = useState(window.innerWidth);
+    useEffect(() => {
+        const handleResize = () => setWidth(window.innerWidth);
+        window.addEventListener("resize", handleResize)
+        return () => window.removeEventListener("resize", handleResize)
+    }, [])
+    return width
+}
+
+function useTimeOut(callback, delay) {
+    const savedCallback = useRef();
+    useEffect(() => {
+        savedCallback.current = callback
+    }, [callback])
+    useEffect(() => {
+        if (delay === null) return;
+        const tick = () => savedCallback.current();
+        const id = setTimeout(tick, delay);
+        return () => clearTimeout(id)
+    }, [delay])
+}
+
+function CustomHook() {
+    const width = useCustomHook();
+    useTimeOut(() => { console.log("Expected to console 2 mins") }, 2000)
+    return <p>Window Width : {width}</p>
+}
+
+const initialState = { count: 0 }
+
+function reducer(state, action) {
+    switch (action.type) {
+        case "increment": return { count: state.count + 1 }
+        case "decrement": return { count: state.count - 1 }
+        case "reset": return initialState;
+        default:
+            throw new Error(`unhandled action type ${action.type}`)
+    }
+}
+
+function UseReducer() {
+    const [state, dispatch] = useReducer(reducer, initialState)
+    return (<div>
+        <h1>Counter : {state.count}</h1>
+        <button onClick={() => dispatch({ type: "decrement" })}>Decrease</button>
+        <button onClick={() => dispatch({ type: "increment" })}>Increase</button>
+        <button onClick={() => dispatch({ type: "reset" })}>Reset</button>
+
+    </div>)
+}
+
+const initialState2 = [];
+
+function reducer2(state, action) {
+    switch (action.type) {
+        case "add":
+            return [...state, { id: Date.now(), text: action.payload, done: false }];
+        case "toggle":
+            return state.map((todo) => todo.id === action.payload ? { ...todo, done: !todo.done } : todo)
+        case "remove":
+            return state.filter(item => item.id !== action.payload)
+        default:
+            return state;
+    }
+}
+
+function ToDo() {
+    const [todos, dispatch] = useReducer(reducer2, initialState2)
+    const [text, setText] = useState("")
+
+    const handleAdd = () => {
+        dispatch({ type: "add", payload: text });
+        setText("");
+    }
+    return (
+        <div>
+            <h2>To Do List</h2>
+
+            <input type="text" value={text} placeholder='New Task' onChange={(e) => setText(e.target.value)} />
+            <button onClick={handleAdd}>Add</button>
+            <ul>
+                {todos.map((item) => {
+                    return (
+                        <>
+                            <li key={item.id}>
+                                <span
+                                    style={{ textDecoration: item.done ? 'line-through' : 'none' }}
+                                    onClick={() => dispatch({ type: "toggle", payload: item.id })}>
+                                    {item.text}
+                                </span>
+                                <button onClick={() => dispatch({ type: "remove", payload: item.id })}>Remove</button>
+                            </li>
+                        </>
+                    )
+                })}
+            </ul>
+            <button></button>
+        </div >
+    )
+}
+
 function Hooks() {
     return (<>
+        <UseLayoutHooks />
         <CallBack />
         <Memo />
         <UseRef />
         <UseId />
         <ImperativeHandle />
+        <CustomHook />
+        <UseReducer />
+        <ToDo />
     </>
     )
 }
