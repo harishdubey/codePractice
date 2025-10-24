@@ -1,5 +1,3 @@
-import React from "react";
-
 const obj = { id: "1", name: "harish", age: "35", work: "programmer" };
 
 function ConsoleCode() {
@@ -140,7 +138,7 @@ function ConsoleCode() {
     }, {});
   }
 
-  console.log(nameCount(arrayObj));
+  console.log("name count : ", nameCount(arrayObj));
 
   const nestedArray = ["1", "2", ["3", ["4", "5"]]];
 
@@ -181,9 +179,60 @@ function ConsoleCode() {
   console.log("Flat Array", flatArray(nestedArray));
 
   const word = "thewquickbrownfoxjumpsoverlittlelazydog";
-
   const uniqueChar = [...new Set(word)].join("");
   console.log("Find Unique Characters : ", uniqueChar);
+
+  const array3 = [12, 13, 4, 5, 6, 8, 30];
+  const num = 10;
+  const filterdArray = array3.filter((val) => val > num);
+  console.log(filterdArray);
+
+  function find_FirstNotRepeatedChar(str) {
+    const count = {};
+    for (let char of str) {
+      count[char] = (count[char] || 0) + 1;
+    }
+    for (let char of str) {
+      if (count[char] === 1) {
+        return char;
+      }
+    }
+  }
+
+  console.log(
+    "find_FirstNotRepeatedChar",
+    find_FirstNotRepeatedChar("aaddaawwwweuuuur")
+  );
+
+  const input = {
+    name: "John",
+    "address.city": "New York",
+    "address.coordinates.lat": 40.7128,
+    "address.coordinates.lng": -74.006,
+    "skills.frontend.html": true,
+    "skills.frontend.css": true,
+    "skills.backend.node": true,
+  };
+
+  function reassamlbeObj(obj) {
+    const result = {};
+    for (let keysArray in obj) {
+      const keys = keysArray.split(".");
+      let current = result;
+      keys.forEach((item, index) => {
+        if (index === keys.length - 1) {
+          current[item] = obj[keysArray];
+        } else {
+          if (!current[item] || typeof current[item] !== "object") {
+            current[item] = {};
+          }
+          current = current[item];
+        }
+      });
+    }
+    return result;
+  }
+  console.log("reassamble obj :", reassamlbeObj(input));
 
   return (
     <>
