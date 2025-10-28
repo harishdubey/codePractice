@@ -234,6 +234,257 @@ function ConsoleCode() {
   }
   console.log("reassamble obj :", reassamlbeObj(input));
 
+  const userObject = { firstname: "Harish", lastname: "Dubey" };
+
+  function functionInvoke(arg1, arg2) {
+    return arg1 + " " + this.firstname + " " + this.lastname + " " + arg2;
+  }
+
+  const funcBind = functionInvoke.bind(userObject);
+  const jsonString = '{"name":"John","age":30}';
+  const parsedJson = JSON.parse(jsonString);
+  console.log(parsedJson, "parsedJson");
+  const stringyfyJson = JSON.stringify(parsedJson);
+  console.log(stringyfyJson, "Strinify Json");
+
+  /* Object Creation  */
+  const myObj1 = {};
+  // const myObj2 = new Object();
+  const myObj3 = Object();
+  function Person(name) {
+    this.name = name;
+  }
+
+  const myObj4 = new Person("Harish");
+  const myObj5 = Object.create(Object.prototype);
+  const myObj6 = Object.assign({}, myObj4);
+  class Person2 {
+    constructor(name) {
+      this.name = name;
+    }
+  }
+  const myObj7 = new Person2("Mukesh");
+  console.log("myObj1 : ", myObj1);
+  // console.log("myObj2 : ", myObj2);
+  console.log("myObj3 : ", myObj3);
+  console.log("myObj4 : ", myObj4);
+  console.log("myObj5 : ", myObj5);
+  console.log("myObj6 : ", myObj6);
+  console.log("myObj7 : ", myObj7);
+
+  /* Pure functions */
+  function sum(a, b) {
+    return a + b;
+  }
+  console.log(sum(1, 3));
+  const array = [1, 2, 3];
+  const output = array.map((n) => n * n);
+  console.log(output);
+
+  /* IIFE */
+  (function () {
+    let message = "This is message";
+    console.log("Immidiatly invoke functions :", message);
+  })();
+
+  /* encode decode  */
+  const value = "Mukesh & Rahul";
+  const encodedData = encodeURI(value);
+  console.log(encodedData);
+  console.log(decodeURI(encodedData));
+
+  const url = "https://mail.google.com/mail/u/0/#inbox";
+  const encodedUrl = encodeURIComponent(url);
+  console.log(encodedUrl);
+  console.log(decodeURIComponent(encodedUrl));
+
+  /* Class used */
+
+  class Name {
+    constructor(firstname, lastname) {
+      this.name = firstname;
+      this.lname = lastname;
+    }
+    getFullName() {
+      return this.name + " " + this.lname;
+    }
+  }
+
+  const myName = new Name("Harish", "Dubey");
+
+  /* Closure Examples */
+  function getWelcome(name) {
+    var greetingInfo = function (message) {
+      console.log(message + " " + name);
+      localStorage.setItem("name", name);
+      sessionStorage.setItem("myname", name);
+    };
+    return greetingInfo;
+  }
+
+  const getName = getWelcome("Harish Dubey");
+  getName("Hello");
+  getName("Welcome");
+
+  /* Callback Hell */
+  function msg1(msg, callback) {
+    console.log(msg);
+    callback();
+  }
+  function msg2(msg, callback) {
+    console.log(msg);
+    callback();
+  }
+  function msg3(msg) {
+    console.log(msg);
+  }
+
+  msg1("print message 1", function () {
+    msg2("print message 2", function () {
+      msg3("print message 3");
+    });
+  });
+
+  /** ends */
+  /* callbacks examples*/
+  function getfunc(func) {
+    setTimeout(() => {
+      console.log("Working");
+      func("My name is Harish");
+    }, 2000);
+  }
+
+  function func(msg) {
+    setTimeout(() => {
+      console.log("Message :", msg);
+    }, 2000);
+  }
+
+  getfunc(func);
+  /* promise  */
+  const myPromise = new Promise((res, rej) => {
+    setTimeout(() => {
+      console.log("Message Printed successfully");
+      res("Done");
+    }, 3000);
+  });
+
+  myPromise
+    .then(() => {
+      console.log("Promise Works");
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      console.log("Finally Done");
+    });
+
+  /* promise chaining */
+  const myPromiseChain = new Promise((res, rej) => {
+    setTimeout(() => {
+      res(10);
+    }, 3000);
+  });
+
+  myPromiseChain
+    .then((result) => {
+      console.log(result);
+      return result * 4;
+    })
+    .then((result) => {
+      console.log(result);
+      return result * 10;
+    })
+    .then((result) => {
+      const finalresult = result;
+      console.log(finalresult);
+    });
+  /* ends  */
+
+  /* promise all */
+  const promise1 = new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("First Done");
+    }, 2000);
+  });
+
+  const promise2 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("Second Done");
+      // reject("Second Done")
+    }, 1000);
+  });
+
+  const promise3 = new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Third Done");
+    }, 6000);
+  });
+
+  Promise.all([promise1, promise2, promise3])
+    .then((result) => {
+      console.log("All Promises Done");
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err, "error found");
+    });
+  /* ends */
+  /* promise race */
+  Promise.race([promise1, promise2, promise3]).then((result) => {
+    console.log("Second Promise Resolve");
+    console.log(result);
+  });
+
+  /** today date print */
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, "0");
+  var mm = String(today.getMonth() + 1).padStart(2, "0");
+  var year = today.getFullYear();
+  const todayDate = dd + "/" + mm + "/" + year;
+
+  /** compare 2 dates */
+  const d1 = new Date();
+  const d2 = new Date();
+  console.log(d1.getTime() === d2.getTime());
+
+  /** add obj properties */
+  const object1 = { id: "1" };
+  object1.name = "harish";
+  object1["age"] = "39";
+  console.log(object1);
+
+  /** multiline string example */
+  var str = "This is a \n very lengthy \n sentence!";
+  console.log(str);
+
+  /* check function parameters/arguments list */
+  function Sum2(a, b, c, d) {
+    return a + b + c + d;
+  }
+  console.log(Sum2.length);
+  /** random numbers generateor with min and max */
+  function RandomNumbers(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  /** image width height */
+  function preloadImage(url) {
+    var img = new Image();
+    img.onload = function () {
+      console.log(
+        "Image Width:" + this.width + " Image Height :" + this.height
+      );
+    };
+    img.onerror = function () {
+      console.log("Image failed to load");
+    };
+    img.src = url;
+  }
+
+  preloadImage("https://www.google.com/intl/en_ALL/images/logo.gif");
+  // 185 javscript
   return (
     <>
       <div>
@@ -303,6 +554,30 @@ function ConsoleCode() {
       <div>
         <strong>find Second Lowest and Second Largest : </strong>
         {findSecondLowestLargest(myArray1)}
+      </div>
+      <div>
+        <strong> call type invoke : </strong>
+        {functionInvoke.call(userObject, "Hi", "welcome here")}
+      </div>
+      <div>
+        <strong> apply type invoke : </strong>
+        {functionInvoke.apply(userObject, ["Hello", "I am here"])}
+      </div>
+      <div>
+        <strong> Bind type invoke : </strong>
+        {funcBind("Hey", "Binding test")}
+      </div>
+      <div>
+        {" "}
+        <strong> Getting Name from Class : </strong> {myName.getFullName()}
+      </div>
+      <div>
+        <strong>Today Date :</strong>
+        {todayDate}
+      </div>
+      <div>
+        <strong>Random Numbers Between 1 - 10 : </strong>
+        {RandomNumbers(1, 10)}
       </div>
     </>
   );
