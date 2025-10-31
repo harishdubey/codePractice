@@ -587,6 +587,36 @@ function ConsoleCode() {
   console.log(isNumber(NaN));
   console.log(isNumber(false));
   // 443 javascript
+  /* remove duplicate obj */
+  const arrayObjTest = [
+    { name: "abc", age: 20, location: "Delhi" },
+    { name: "xyz", age: 30, location: "Mumbai" },
+    { name: "RTS", age: 60, location: "Kolkata" },
+    { name: "abc", age: 20, location: "Delhi" },
+  ];
+
+  function removeDuplicateObj(arr) {
+    const uniqueArr = [];
+    for (let obj of arr) {
+      const isDuplicate = uniqueArr.some(
+        (item) =>
+          item.name === obj.name &&
+          item.age === obj.age &&
+          item.location === obj.location
+      );
+      if (!isDuplicate) {
+        uniqueArr.push(obj);
+      }
+    }
+    return uniqueArr;
+  }
+
+  console.log(
+    "duplicate obj removed from array: ",
+    removeDuplicateObj(arrayObjTest)
+  );
+  /**ends */
+
   return (
     <>
       <div>

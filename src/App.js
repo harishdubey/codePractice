@@ -11,13 +11,14 @@
 // import ContextCheck from './ContextCheck';
 // import Hooks from "./Hooks";
 // import ProtectedComponent from "./HOC";
-import './App.css';
-import ConsoleCode from './ConsoleCode';
+import ContextCheck2 from "./ContextCheck2";
+import "./App.css";
+import ConsoleCode from "./ConsoleCode";
 
 function App() {
-
   return (
     <div className="App">
+      <ContextCheck2 />
       <ConsoleCode />
       {/* <ProtectedComponent /> */}
       {/* <Hooks /> */}
@@ -33,7 +34,6 @@ function App() {
       {/* <PostsWithPagination /> */}
 
       {/* <Year /> */}
-
     </div>
   );
 }
