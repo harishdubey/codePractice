@@ -148,6 +148,9 @@ function ConsoleCode() {
       []
     );
   }
+  const biDimensionalArr = [11, [22, 33], [44, 55], [66, 77], 88, 99];
+  const finalFlatArray = [].concat(...biDimensionalArr);
+  console.log(finalFlatArray);
 
   function findSecondLowestLargest(arr) {
     const sortedArray = [...new Set(arr)].sort((a, b) => a - b);
@@ -485,6 +488,105 @@ function ConsoleCode() {
 
   preloadImage("https://www.google.com/intl/en_ALL/images/logo.gif");
   // 185 javscript
+  /* sum with arguments */
+  function Sum3(...args) {
+    let total = 0;
+    for (const i of args) {
+      total += i;
+    }
+    return total;
+  }
+  /** Forzen object check */
+  const normalObj = { id: "1", name: "harish" };
+  Object.freeze(normalObj);
+  console.log(Object.isFrozen(normalObj));
+
+  /** object seal property  */
+  const normalObj2 = { id: "1", name: "harish" };
+  normalObj2.property = "Welcome to check";
+  Object.seal(normalObj2);
+  console.log(Object.isSealed(normalObj2));
+  // delete normalObj2.property;
+  console.log(normalObj2);
+
+  /* error object print  */
+  try {
+    // greeting("Welcome");
+  } catch (err) {
+    console.log("Name: " + err.name + " message: " + err.message);
+  }
+  /* min and max find with  */
+  const marks = [10, 20, 3, 40, 80, 120];
+  marks.sort((a, b) => a - b);
+  const min = marks[0];
+  const max = marks[marks.length - 1];
+  console.log(min, max);
+
+  function FindMinMax(arr) {
+    let min = arr[0];
+    let max = arr[0];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] < min) {
+        min = arr[i];
+      }
+      if (arr[i] > max) {
+        max = arr[i];
+      }
+    }
+    return { min: min, max: max };
+  }
+
+  console.log(FindMinMax(marks));
+  /* ends */
+
+  console.log([..."Harish"]);
+  console.log("Welcome to JS world"[0]);
+  console.log("Hello".repeat(4));
+  console.log(+"Hello");
+  console.log(![]);
+  console.log(["a"] + ["b"]);
+  console.log([] + [], "harish");
+  console.log(![] + []);
+  console.log(0 ?? 2); // 0
+  console.log("test" && 2); // 2
+  console.log(1 && 2); // 2
+  console.log(0 && 2); // 0
+  console.log(22 ?? 2); // 22
+  console.log(null && 2); // null
+  console.log(+null); // 0
+  console.log(+undefined); // NaN
+  console.log(+false); // 0
+  console.log(+NaN); // NaN
+  console.log(+""); // 0
+  /** falsy value removes from array */
+  const falsyValuesArray = [1, 4, 0, false, null, 6, undefined];
+  console.log(falsyValuesArray.filter(Boolean));
+  console.log(
+    "%c The text has blue color, with large font and red background",
+    "color: blue; font-size: x-large; background: red"
+  );
+  const user = { name: "John", id: 1, city: "Delhi" };
+  console.dir(user);
+  const users = [
+    { name: "John", id: 1, city: "Delhi" },
+    { name: "Max", id: 2, city: "London" },
+    { name: "Rod", id: 3, city: "Paris" },
+  ];
+  console.table(users);
+  /** get timestamp */
+  console.log(+new Date());
+  console.log(Date.now());
+  console.log(new Date().getTime());
+  /** check input is number */
+  function isNumber(value) {
+    return typeof value === "number" && Number.isFinite(value);
+  }
+
+  console.log(isNumber(10));
+  console.log(isNumber("10"));
+  console.log(isNumber(NaN));
+  console.log(isNumber(false));
+  // 443 javascript
   return (
     <>
       <div>
@@ -578,6 +680,16 @@ function ConsoleCode() {
       <div>
         <strong>Random Numbers Between 1 - 10 : </strong>
         {RandomNumbers(1, 10)}
+      </div>
+      <div>
+        <strong>Sum with help of arguments rest operator</strong> :
+        {Sum3(1, 2, 3, 4, 5)}
+      </div>
+      <div>
+        <strong>Min Value : </strong>
+        {Math.min(...marks)}
+        <strong> Max Value : </strong>
+        {Math.max(...marks)}
       </div>
     </>
   );
